@@ -51,11 +51,11 @@ jobs:
           
           tail -10 gradle.properties
 
-      - name: Generate debug keystore
+      - name: Generate debug keystore in project
         run: |
-          mkdir -p ~/.android
+          cd $GITHUB_WORKSPACE
           keytool -genkey -v \
-            -keystore ~/.android/debug.keystore \
+            -keystore debug.keystore \
             -storepass android \
             -alias androiddebugkey \
             -keypass android \
@@ -63,7 +63,7 @@ jobs:
             -keysize 2048 \
             -validity 10000 \
             -dname "CN=Android Debug,O=Android,C=US"
-          ls -la ~/.android/
+          ls -la debug.keystore
 
       - name: Build APK (Debug) - Only TMessagesProj_App
         id: build
@@ -71,7 +71,12 @@ jobs:
           export ANDROID_HOME=$HOME/android-sdk
           export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools
           chmod +x gradlew
-          ./gradlew :TMessagesProj_App:assembleAfatDebug --no-daemon --stacktrace 2>&1 | tee /tmp/gradle.log
+          ./gradlew :TMessagesProj_App:assembleAfatDebug \
+            -Pandroid.injected.signing.store.file=$GITHUB_WORKSPACE/debug.keystore \
+            -Pandroid.injected.signing.store.password=android \
+            -Pandroid.injected.signing.key.alias=androiddebugkey \
+            -Pandroid.injected.signing.key.password=android \
+            --no-daemon --stacktrace 2>&1 | tee /tmp/gradle.log
           exit ${PIPESTATUS[0]}
 
       - name: Show error summary
