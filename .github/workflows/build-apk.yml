@@ -42,23 +42,6 @@ jobs:
           yes | timeout 600 sdkmanager --install "platform-tools" "ndk;21.4.7075529" "platforms;android-34" "build-tools;34.0.0" "cmake;3.22.1" > /dev/null 2>&1 || true
           ls -la $ANDROID_HOME/ndk/ 2>/dev/null || echo "NDK dir empty"
 
-      - name: Show gradle build environment
-        run: |
-          export ANDROID_HOME=$HOME/android-sdk
-          export ANDROID_SDK_ROOT=$HOME/android-sdk
-          export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools
-          echo "ANDROID_HOME=$ANDROID_HOME"
-          echo "ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT"
-          echo "JAVA_HOME=$JAVA_HOME"
-          echo "=== gradle-wrapper.properties ==="
-          cat gradle/wrapper/gradle-wrapper.properties
-          echo "=== gradle.properties ==="
-          cat gradle.properties
-          echo "=== TMessagesProj/build.gradle (first 100) ==="
-          head -100 TMessagesProj/build.gradle
-          echo "=== TMessagesProj_App/build.gradle (first 100) ==="
-          head -100 TMessagesProj_App/build.gradle
-
       - name: Set local.properties
         run: |
           export ANDROID_HOME=$HOME/android-sdk
@@ -72,40 +55,34 @@ jobs:
           grep -q "org.gradle.jvmargs" gradle.properties || echo "org.gradle.jvmargs=-Xmx4g -XX:+HeapDumpOnOutOfMemoryError" >> gradle.properties
           grep -q "android.useAndroidX" gradle.properties || echo "android.useAndroidX=true" >> gradle.properties
 
-      - name: Build Debug APK (show full error)
+      - name: Build Debug APK
         run: |
           export ANDROID_HOME=$HOME/android-sdk
           export ANDROID_SDK_ROOT=$HOME/android-sdk
           export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools
           chmod +x gradlew
-          set +e
-          ./gradlew assembleDebug --no-daemon --stacktrace --info > /tmp/gradle-build.log 2>&1
-          BUILD_EXIT=$?
-          echo "=== BUILD EXIT CODE: $BUILD_EXIT ==="
-          echo "=== LAST 200 LINES OF BUILD LOG ==="
-          tail -200 /tmp/gradle-build.log
-          echo "=== ERRORS ==="
-          grep -E "error:|ERROR|What went wrong|FAILED|FAILURE" /tmp/gradle-build.log | head -50
-          echo "=== BUILD END ==="
-          exit $BUILD_EXIT
+          ./gradlew assembleDebug --no-daemon --stacktrace
 
-      - name: Find APK
+      - name: List ALL APKs found (debug output)
         if: always()
         run: |
-          find . -name "*.apk" -type f 2>/dev/null
+          echo "=== ALL APK FILES IN PROJECT ==="
+          find . -name "*.apk" -type f 2>/dev/null || echo "NO APK FILES FOUND"
+          echo ""
+          echo "=== ALL OUTPUTS DIRECTORIES ==="
+          find . -type d -name "outputs" 2>/dev/null || echo "NO OUTPUTS DIRS"
+          echo ""
+          echo "=== APK DETAILS (with size) ==="
+          find . -name "*.apk" -type f -exec ls -lah {} \; 2>/dev/null || echo "NONE"
+          echo ""
+          echo "=== APK MD5 ==="
+          find . -name "*.apk" -type f -exec md5sum {} \; 2>/dev/null || echo "NONE"
 
-      - name: Upload build log
+      - name: Upload ANY .apk found
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: build-log
-          path: /tmp/gradle-build.log
-          retention-days: 7
-
-      - name: Upload Debug APK
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: owpengram-debug-apk
-          path: "**/build/outputs/apk/debug/*.apk"
+          name: owpengram-apk
+          path: "**/*.apk"
           retention-days: 30
+          if-no-files-found: warn
