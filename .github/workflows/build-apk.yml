@@ -51,13 +51,13 @@ jobs:
           
           tail -10 gradle.properties
 
-      - name: Build APK (Debug)
+      - name: Build APK (Debug) - Only TMessagesProj_App
         id: build
         run: |
           export ANDROID_HOME=$HOME/android-sdk
           export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools
           chmod +x gradlew
-          ./gradlew assembleDebug --no-daemon --stacktrace 2>&1 | tee /tmp/gradle.log
+          ./gradlew :TMessagesProj_App:assembleAfatDebug --no-daemon --stacktrace 2>&1 | tee /tmp/gradle.log
           exit ${PIPESTATUS[0]}
 
       - name: Show error summary
@@ -89,5 +89,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: owpengram-debug-apk
-          path: TMessagesProj/build/outputs/apk/debug/*.apk
+          path: TMessagesProj_App/build/outputs/apk/afat/debug/*.apk
           if-no-files-found: warn
