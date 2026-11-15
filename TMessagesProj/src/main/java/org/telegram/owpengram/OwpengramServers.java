@@ -64,17 +64,17 @@ public class OwpengramServers {
     private static final int    DEFAULT_PORT = 2398;
 
     // OwpenGram's own production server RSA key.
-    static final String OWPENGRAM_RSA_KEY =
         
-        "-----BEGIN PUBLIC KEY-----
-MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0bKOHXzRsKte8UjTBuMC
-DaCRqxctmOtcHoY9zg91jr4grGTJMZtgsQYAUHE6RoiHursj4HFYSezLT1GkXlJ+
-CGti5Juvc3lk4/VmJ49kvEk+jujwgA25XA4lgMuXj3Epg/uk5HM5T+nmv1UbOEVd
-pz4z/oAuRLi3MoACFprEblQdAYAAw0Rrh4Xqlc94AUX5PtM1lZo34LvmSeUIM2q2
-LeLm5+qVKuBOct7OFJ5Gw2LSrkKYi7Lty+OlSIPar3dFc9RoggDZdAWjCEgHzfKI
-snETO8rzdUrk5SQXWwe597JoQc3uDEuKkSBVXDMaKh2Rp7pHb0VsjJMtWJ322Kk7
-pwIDAQAB
------END PUBLIC KEY-----";
+    public static final String OWPENGRAM_RSA_KEY =
+        "-----BEGIN PUBLIC KEY-----\n" +
+        "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0bKOHXzRsKte8UjTBuMC\n" +
+        "DaCRqxctmOtcHoY9zg91jr4grGTJMZtgsQYAUHE6RoiHursj4HFYSezLT1GkXlJ+\n" +
+        "CGti5Juvc3lk4/VmJ49kvEk+jujwgA25XA4lgMuXj3Epg/uk5HM5T+nmv1UbOEVd\n" +
+        "pz4z/oAuRLi3MoACFprEblQdAYAAw0Rrh4Xqlc94AUX5PtM1lZo34LvmSeUIM2q2\n" +
+        "LeLm5+qVKuBOct7OFJ5Gw2LSrkKYi7Lty+OlSIPar3dFc9RoggDZdAWjCEgHzfKI\n" +
+        "snETO8rzdUrk5SQXWwe597JoQc3uDEuKkSBVXDMaKh2Rp7pHb0VsjJMtWJ322Kk7\n" +
+        "pwIDAQAB\n" +
+        "-----END PUBLIC KEY-----";
     // fingerprint == 0 -> native layer derives it from the PEM (see ConnectionsManager::applyServerConfig).
     static final long OWPENGRAM_RSA_FINGERPRINT = 0;
 
