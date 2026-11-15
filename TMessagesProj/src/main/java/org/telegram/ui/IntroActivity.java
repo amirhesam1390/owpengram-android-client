@@ -407,7 +407,7 @@ public class IntroActivity extends BaseFragment implements NotificationCenter.No
                 return;
             }
             startPressed = true;
-            presentFragment(new ServerSelectFragment());
+            presentFragment(new LoginActivity());
             // Reset so the button works again if the user navigates back from the
             // server picker (ServerSelectFragment is pushed on top, not finishing intro).
             startPressed = false;

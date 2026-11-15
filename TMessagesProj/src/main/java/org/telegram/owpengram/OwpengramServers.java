@@ -60,19 +60,21 @@ public class OwpengramServers {
         customServersChangedListeners.remove(listener);
     }
 
-    private static final String DEFAULT_HOST = "152.89.254.50";
+    private static final String DEFAULT_HOST = "5.102.37.137";
     private static final int    DEFAULT_PORT = 2398;
 
     // OwpenGram's own production server RSA key.
     static final String OWPENGRAM_RSA_KEY =
-        "-----BEGIN RSA PUBLIC KEY-----\n" +
-        "MIIBCgKCAQEAxUi0fsjiop7kTI+c+ATHwIs+XPcircj9WL/tNASH45/phiIvxhPU\n" +
-        "z4T6OgUfDVpQEC8SWCuq77aZAhnpZ0rfQ+h6vEv7X970wIAPT/hbyzekyWEFmH5Q\n" +
-        "RxSPrOMKF/V0wuTOVJcoHZW5r5cK7xsVe/otdYdOgt67kITS7pqoO1BlstRuOEHL\n" +
-        "jhaJ/40dXocrWpDQlJP2TZFwk5JF1Pbx/2mLr/asQapc/qbQP82b+iDLW8QIBT0f\n" +
-        "+xi4Js4k7Qo9kZSuUHUCDzmJt6Z0USBxxp/tSZRVjWRaT9ORDrdyfb/mKFSt9BtC\n" +
-        "B5VRJ1e0q7P/9/w21T0p9uV3eNXhnPnLFQIDAQAB\n" +
-        "-----END RSA PUBLIC KEY-----";
+        
+        "-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0bKOHXzRsKte8UjTBuMC
+DaCRqxctmOtcHoY9zg91jr4grGTJMZtgsQYAUHE6RoiHursj4HFYSezLT1GkXlJ+
+CGti5Juvc3lk4/VmJ49kvEk+jujwgA25XA4lgMuXj3Epg/uk5HM5T+nmv1UbOEVd
+pz4z/oAuRLi3MoACFprEblQdAYAAw0Rrh4Xqlc94AUX5PtM1lZo34LvmSeUIM2q2
+LeLm5+qVKuBOct7OFJ5Gw2LSrkKYi7Lty+OlSIPar3dFc9RoggDZdAWjCEgHzfKI
+snETO8rzdUrk5SQXWwe597JoQc3uDEuKkSBVXDMaKh2Rp7pHb0VsjJMtWJ322Kk7
+pwIDAQAB
+-----END PUBLIC KEY-----";
     // fingerprint == 0 -> native layer derives it from the PEM (see ConnectionsManager::applyServerConfig).
     static final long OWPENGRAM_RSA_FINGERPRINT = 0;
 
