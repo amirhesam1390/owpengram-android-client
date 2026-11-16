@@ -76,7 +76,7 @@ public class OwpengramServers {
         "pwIDAQAB\n" +
         "-----END PUBLIC KEY-----";
     // fingerprint == 0 -> native layer derives it from the PEM (see ConnectionsManager::applyServerConfig).
-    static final long OWPENGRAM_RSA_FINGERPRINT = 0xb0ba60ef88bcce5L;
+    static final long OWPENGRAM_RSA_FINGERPRINT = 0;
 
     // Official Telegram production RSA key (restored from original Android source)
     static final String TELEGRAM_RSA_KEY =
