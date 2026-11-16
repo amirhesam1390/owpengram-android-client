@@ -61,7 +61,7 @@ public class OwpengramServers {
     }
 
     private static final String DEFAULT_HOST = "5.102.37.137";
-    private static final int    DEFAULT_PORT = 2398;
+    private static final int    DEFAULT_PORT = 2400;
 
     // OwpenGram's own production server RSA key.
         
